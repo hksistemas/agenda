@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <script src="/js/scripts.js"></script>
+
+  <title>Agenda</title>
+</head>
+
+<body>
+<div class="body-site">
+  <div class="header">
+    <img src="/images/address-book.png" style="height: 94px;width: 80px; float: left;" alt="Agenda"/>
+    <div class="bem-vindo">
+      <span>
+        Bem-vindo à Agenda Fácil! Cadastre seus contatos de forma simples e acesse de qualquer lugar. Experimente a praticidade agora!
+      </span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="toolbar">
+      <span>
+        Lista de contatos
+      </span>
+      <div title="Criar novo contato" class="icon-add" onclick="formOpenClose(true)"></div>
+    </div>
+    <div class="header-table">
+      <div class="header-cell"></div>
+      <div class="header-cell">Nome</div>
+      <div class="header-cell">Telefone</div>
+      <div class="header-cell">E-mail</div>
+      <div class="header-cell"></div>
+    </div>
+    <div class="table-container">
+      <table class="table-border">
+
+        <tbody>
+          <% todos.forEach(todo=> { %>
+            <tr>
+              <td>
+                <div class="icon">
+                  <%= todo.nome.charAt(0) %>
+                </div>
+              </td>
+              <td>
+                <%= todo.nome %>
+              </td>
+              <td>
+                <%= todo.telefone %>
+              </td>
+              <td>
+                <%= todo.email %>
+              </td>
+              <td>
+                <div class="actions">
+                  <a href="/edit/<%= todo.id %>">
+                    <div title="Atualizar cadastro" class="icon-edit"></div>
+                  </a>
+                  <a href="/delete/<%= todo.id %>">
+                    <div title="Excluir cadastro" class="icon-trash"></div>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="overlay">
+
+    <div class="form-add">
+      <div class="top-form">
+        <div><strong>Cadastro de contatos</strong></div>
+        <div class="icon-close" onclick="formOpenClose(false)"></div>
+      </div>
+      <form action="/add" method="POST">
+      <div class="fields-content">
+        <input type="text" name="nome" placeholder="Digite o nome" required="true">
+        <input type="text" name="telefone" placeholder="Digite o telefone">
+        <input type="text" name="email" placeholder="Digite o email">
+      </div>
+      <div class="footer">
+        <input class="button-save" type="submit" value="Salvar"/>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

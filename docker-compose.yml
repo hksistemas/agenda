@@ -1,0 +1,35 @@
+
+
+version: '3.8'
+services:
+  db:
+    image: mysql:latest
+    volumes:
+      - /mysql-data:/var/lib/mysql
+    environment:   
+      DATA_BASE_USER: ${DATA_BASE_USER}
+      DATA_BASE_PASSWORD: ${DATA_BASE_PASSWORD}
+      DATA_BASE_NAME: ${DATA_BASE_NAME}
+    ports:
+      - 3306:3306
+    deploy:
+      placement:
+        constraints: [node.role==worker]
+  agenda:
+    image: hksistemas/agenda:latest
+    deploy:
+      placement:
+        constraints: [node.role==worker]
+    environment:
+     - DB_HOST=a${DATA_BASE_HOST}
+     - DB_USER=${DATA_BASE_USER}
+     - DB_PASSWORD=${DATA_BASE_PASSWORD}
+     - DB_NAME=${DATA_BASE_NAME}
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+
+    
+    
+
